@@ -4,7 +4,7 @@ title: '#4471 is three problems, not one'
 owner: felixo-szdm
 status: accepted
 reviewed: 2026-11-27
-signature: felixo-szdm
+signature: v1.eyJzdWIiOiIzMjAwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTU3OTAzMzksImV4cCI6MTc5NTg3NjczOX0.vEf3sn29S651zgttzSIH6OSAJ9PJLYfj4UzonEq_oJU
 ---
 
 <script>
