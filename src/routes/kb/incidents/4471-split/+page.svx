@@ -1,0 +1,62 @@
+---
+layout: runbook
+title: '#4471 is three problems, not one'
+owner: felixo-szdm
+status: proposed
+reviewed: 2026-11-27
+signature: felixo-szdm
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const ISSUES = 'https://github.com/felixo-szdm/mega-s01e03-what-it-shows/issues';
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Its own cause table
+already disagrees. Read by what each report says, the reports merged into it are three problems
+with three fixes. The queued parser fix closes only the first.
+
+<Callout kind="warn">
+Fixing the parser leaves the booking-v3 form and the one-day moves broken. Keep #4471 open
+until each problem below has its own fix.
+</Callout>
+
+## The problems
+
+<ProblemTable
+  ticket={4471}
+  issues={{ parser: `${ISSUES}/1`, hint: `${ISSUES}/2`, 'one-day': `${ISSUES}/3` }}
+/>
+
+**`parser`**: the shared parser reads every date month first, and every tenant on file writes
+the day first. Day and month come out swapped: "Booked for 2 December. The invite says
+12 February."
+
+**`hint`**: the booking-v3 form prints `MM/DD/YYYY` under its date field. People type month
+first as told, and the form reads the date day first, the tenant's way. Same swap, different
+bug: the fix is in the form, not the parser.
+
+**`one-day`**: a booking moves by one day, or shows a different day in Lisbon and Toronto.
+Nothing is swapped. That is a timezone or daylight-saving conversion. The desk spotted these
+([desk notes](https://github.com/felixo-szdm/mega-s01e03-what-it-shows/blob/main/src/lib/data/desk-notes.json))
+and counts them under `parser` by tenant, so they sit in that row too; a parser fix will not close them.
+
+## How they ended up in one ticket
+
+- **Merging by subject** ([decision 0001](/kb/decisions/0001-dedupe-by-subject)). All three
+  problems produce the same subjects: "Wrong day on the invite", "Date is wrong". Matching
+  subjects merged them without anyone reading a body.
+- **Intake tags are a guess from the reporter's browser.** Every report tagged `hint` came from
+  an en-US browser, whatever its tenant or form. The tag is no guide to the cause.
+- **The export repeats rows.** Its pages overlap, so count by report id.
+
+## For the desk
+
+- Group by tenant, form and channel (`causes.ts`), not by subject.
+- Read a sample of each group's bodies before you call a big ticket one issue.
+- A decision record is never edited; a new one should replace 0001.
+
+<RenderStamp {signature} />
