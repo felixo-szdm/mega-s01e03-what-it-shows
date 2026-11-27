@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 is three problems, not one'
 owner: felixo-szdm
-status: proposed
+status: accepted
 reviewed: 2026-11-27
 signature: felixo-szdm
 ---
@@ -15,13 +15,21 @@ signature: felixo-szdm
   const ISSUES = 'https://github.com/felixo-szdm/mega-s01e03-what-it-shows/issues';
 </script>
 
-[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Its own cause table
-already disagrees. Read by what each report says, the reports merged into it are three problems
-with three fixes. The queued parser fix closes only the first.
+[#4471](/kb/incidents/4471) was marked known: one issue, one fix queued. Its own cause table
+already disagreed. Read by what each report says, the reports merged into it are three problems
+with three fixes.
+
+## Where they stand
+
+Engineering closed #4471 on 5 October:
+
+- **`parser`**: fixed (`fix(dates): parse dd/mm for eu locales`). Ticket closed.
+- **`hint`**: won't fix. The booking-v3 form is retired, and its hint with it. Ticket closed.
+- **`one-day`**: still open. Neither change touches a timezone or daylight-saving conversion.
 
 <Callout kind="warn">
-Fixing the parser leaves the booking-v3 form and the one-day moves broken. Keep #4471 open
-until each problem below has its own fix.
+Closing #4471 did not close the one-day moves. Keep their ticket open until they have a fix of
+their own.
 </Callout>
 
 ## The problems
